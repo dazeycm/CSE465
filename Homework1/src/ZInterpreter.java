@@ -90,4 +90,8 @@ public class ZInterpreter {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
     }
+
+    public void clearInterpreter()  {       //method to clear vars for time testing
+        this.vars.clear();
+    }
 }
