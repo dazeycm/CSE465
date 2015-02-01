@@ -19,4 +19,4 @@ All of the included Z+- files work as inteded, with correct ouput. This leads me
     B = -19943325
   
 #Interpreted vs. Compiled
-![alt tag](/times.png)
+![alt tag](\times.png)
