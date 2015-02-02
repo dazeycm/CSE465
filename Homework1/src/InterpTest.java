@@ -14,6 +14,5 @@ public class InterpTest {
             interp.parseLine(line);
         }
         interp.printVars();
-
     }
 }
