@@ -4,6 +4,9 @@ using namespace std;
 
 int main()	{
 	Expression exp;
-	cout << exp.getHeight();
+	cout << exp.getHeight() << endl;
+	Expression exp2(exp);
+	cout << exp2.getHeight() << endl;
+	
 	return 0;
 }

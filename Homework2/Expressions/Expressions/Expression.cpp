@@ -1,5 +1,4 @@
 #include "Expression.h"
-#define null 0
 
 Expression::Expression()	{
 	root = new Node();
@@ -12,8 +11,25 @@ Expression::Expression()	{
 	root->right->value = 0;
 }
 
+Expression::Expression(const Expression &other)	{
+	root = copyHelper(other.root);
+}
+
+Node* Expression::copyHelper(const Node *other)	{
+	if (other == NULL)	{
+		return NULL;
+	}
+	Node *newnode = new Node();
+	newnode->op = other->op;
+	newnode->isVar = other->isVar;
+	newnode->value = other->value;
+	newnode->left = copyHelper(other->left);
+	newnode->left = copyHelper(other->right);
+	return newnode;
+}
+
 void Expression::clear(Node* node)	{
-	if (node)	{
+	if (node != NULL)	{
 		if (node->left) clear(node->left);
 		if (node->right) clear(node->right);
 		delete node;
@@ -31,9 +47,9 @@ int Expression::getHeight() const	{
 int Expression::getHeightFromNode(Node* node)	const{
 	int heightLeft = 0;
 	int heightRight = 0;
-	if (node->left != null)
+	if (node->left != NULL)
 		heightLeft = getHeightFromNode(node->left);
-	if (node->right != null)
+	if (node->right != NULL)
 		heightRight = getHeightFromNode(node->right);
 	if (heightLeft > heightRight){
 		return heightLeft + 1;

@@ -15,6 +15,7 @@ public:
 	Expression();				// expression equal to the number 0
 	Expression(string str);			// create expression from parenthesized expr
 	Expression(const Expression &other);// copy ctor
+	Node* copyHelper(const Node *node);
 	~Expression();				// destructor
 	void clear(Node* node);
 	Expression &operator = (const Expression &other);// assignment operator
@@ -23,7 +24,7 @@ public:
 	string toString() const;
 	void mutate();
 	int getHeight() const;
-	int getHeightFromNode(Node* node) const;
+	int getHeightFromNode(Node* other) const;
 private:
 	Node *root;
 };
