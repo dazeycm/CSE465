@@ -18,7 +18,7 @@ public:
 	Node* copyHelper(const Node *node);					//done
 	~Expression();										//done
 	void clear(Node* node);								//done
-	Expression &operator = (const Expression &other);	
+	Expression &operator = (const Expression &other);	//done
 	double evaluate(double x) const;
 	static Expression randomExpression(int height);
 	string toString() const;
