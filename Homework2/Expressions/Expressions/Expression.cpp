@@ -36,6 +36,14 @@ void Expression::clear(Node* node)	{
 	}
 }
 
+Expression &Expression::operator = (const Expression &other)	{
+	if (this != &other)	{
+		clear(root);
+		root = copyHelper(other.root);
+	}
+	return *this;
+}
+
 Expression::~Expression()	{
 	clear(root);
 }

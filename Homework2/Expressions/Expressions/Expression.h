@@ -12,19 +12,19 @@ struct Node		{
 
 class Expression	{
 public:
-	Expression();				// expression equal to the number 0
-	Expression(string str);			// create expression from parenthesized expr
-	Expression(const Expression &other);// copy ctor
-	Node* copyHelper(const Node *node);
-	~Expression();				// destructor
-	void clear(Node* node);
-	Expression &operator = (const Expression &other);// assignment operator
+	Expression();										//done
+	Expression(string str);						
+	Expression(const Expression &other);				//done
+	Node* copyHelper(const Node *node);					//done
+	~Expression();										//done
+	void clear(Node* node);								//done
+	Expression &operator = (const Expression &other);	
 	double evaluate(double x) const;
 	static Expression randomExpression(int height);
 	string toString() const;
 	void mutate();
-	int getHeight() const;
-	int getHeightFromNode(Node* other) const;
+	int getHeight() const;								//done
+	int getHeightFromNode(Node* other) const;			//done
 private:
 	Node *root;
 };
