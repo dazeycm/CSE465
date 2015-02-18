@@ -7,15 +7,6 @@ Expression::Expression()	{
 
 Expression::Expression(string str)	{
 	str = stripParens(str);
-	cout << str << std::endl;
-
-	std::vector<std::string> parts = getLeftAndRight(str);
-
-	cout << findIndexMiddleExp(str) << endl;
-	cout << getMiddleExp(str) << endl;
-	cout << parts.at(0) << endl;
-	cout << parts.at(1) << endl;
-
 	root = parseStatement(str);
 }
 
@@ -26,8 +17,13 @@ Node* Expression::parseStatement(string str)	{
 		newOpNode->op = getMiddleExp(str);
 		newOpNode->isVar = false;
 		newOpNode->value = NULL;
+		//cout << "String: " << str << endl;
+		//cout << "Middle Expression: " << getMiddleExp(str) << endl;
+		//cout << "Left Part: " << stripParens(parts[0]) << endl;
+		//cout << "Right Part: " << stripParens(parts[1]) << endl;
 		newOpNode->left = parseStatement(stripParens(parts[0]));
 		newOpNode->right = parseStatement(stripParens(parts[1]));
+		cout << "Creating newOpNode" << endl;
 		return newOpNode;
 	}
 	if (isdigit(getMiddleExp(str)))	{
@@ -38,9 +34,20 @@ Node* Expression::parseStatement(string str)	{
 		newValNode->value = c - '0';
 		newValNode->left = NULL;
 		newValNode->right = NULL;
+		cout << "Creating newValNode" << endl;
 		return newValNode;
 	}
-	
+	if (getMiddleExp(str) == 'x')	{
+		Node* newVarNode = new Node();
+		newVarNode->op = getMiddleExp(str);
+		newVarNode->isVar = true;
+		newVarNode->value = 99;
+		newVarNode->left = NULL;
+		newVarNode->right = NULL;
+		cout << "Creating newVarNode" << endl;
+		return newVarNode;
+	}
+
 }
 
 bool Expression::isInteger(const string & s)
@@ -100,7 +107,6 @@ string Expression::stripParens(string str)	{
 }
 
 Expression::Expression(const Expression &other)	{
-	//clear(root);
 	root = copyHelper(other.root);
 }
 
@@ -113,28 +119,43 @@ Node* Expression::copyHelper(const Node *other)	{
 	newnode->isVar = other->isVar;
 	newnode->value = other->value;
 	newnode->left = copyHelper(other->left);
-	newnode->left = copyHelper(other->right);
+	newnode->right = copyHelper(other->right);
 	return newnode;
-}
-
-void Expression::clear(Node* node)	{
-	if (node != NULL)	{
-		if (node->left) clear(node->left);
-		if (node->right) clear(node->right);
-		delete node;
-	}
 }
 
 Expression &Expression::operator = (const Expression &other)	{
 	if (this != &other)	{
-		clear(root);
+		delete root;
 		root = copyHelper(other.root);
 	}
 	return *this;
 }
 
 Expression::~Expression()	{
-	clear(root);
+	delete root;
+}
+
+Node::~Node()	{ 
+	delete left;
+	delete right;
+	left = nullptr;
+	right = nullptr;
+}
+
+void Expression::clear(Node* node)	{
+	if (node != NULL)	{
+		if (node->left != NULL) clear(node->left);
+		if (node->right != NULL) clear(node->right);
+		if (node->right == NULL && node->left == NULL)	{
+			if (node != root)	{
+				delete node;
+				node = nullptr;
+			}
+			else{
+				root = NULL;
+			}
+		}
+	}
 }
 
 int Expression::getHeight() const	{

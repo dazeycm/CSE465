@@ -9,13 +9,14 @@ struct Node		{
 	char op;
 	bool isVar;
 	int value;
+	~Node();
 };
 
 class Expression	{
 public:
 	Expression();										//done
-	Expression(string str);						
-	Node* parseStatement(string str);
+	Expression(string str);								//done
+	Node* parseStatement(string str);					//done
 	bool isInteger(const string & s);					//done
 	int findIndexMiddleExp(string str);					//done
 	char getMiddleExp(string str);						//done
@@ -23,9 +24,9 @@ public:
 	string stripParens(string str);						//done
 	Expression(const Expression &other);				//done
 	Node* copyHelper(const Node *node);					//done
-	~Expression();										//done
-	void clear(Node* node);								//done
 	Expression &operator = (const Expression &other);	//done
+	~Expression();										//done
+	//void clear(Node* node);								//done
 	double evaluate(double x) const;
 	static Expression randomExpression(int height);
 	string toString() const;
