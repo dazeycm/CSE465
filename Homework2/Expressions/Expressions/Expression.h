@@ -16,10 +16,11 @@ public:
 	Expression();										//done
 	Expression(string str);						
 	Node* parseStatement(string str);
+	bool isInteger(const string & s);					//done
 	int findIndexMiddleExp(string str);					//done
-	char getMiddleExp(string str);
-	vector<string> getLeftAndRight(string str);
-	string stripParens(string str);
+	char getMiddleExp(string str);						//done
+	vector<string> getLeftAndRight(string str);			//done
+	string stripParens(string str);						//done
 	Expression(const Expression &other);				//done
 	Node* copyHelper(const Node *node);					//done
 	~Expression();										//done

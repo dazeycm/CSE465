@@ -4,9 +4,9 @@ using namespace std;
 
 int main()	{
 
-	Expression exp("(1+((61%(3+6))*7))");
-
-
+	Expression exp("((((x)-(3))+((4)^(2)))^(((7)*(x))*((x)-(3))))");
+	Expression exp2;
+	
 
 	//std::vector<std::string> parts = exp.getLeftAndRight(s);
 	//cout << exp.findIndexMiddleExp(s) << endl;

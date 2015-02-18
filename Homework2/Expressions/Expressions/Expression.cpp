@@ -2,13 +2,7 @@
 
 Expression::Expression()	{
 	root = new Node();
-	root->op = '+';
-	root->left = new Node();
-	root->right = new Node();
-	root->left->isVar = true;
-	root->right->isVar = true;
-	root->left->value = 0;
-	root->right->value = 0;
+	root->value = 0;
 }
 
 Expression::Expression(string str)	{
@@ -22,11 +16,41 @@ Expression::Expression(string str)	{
 	cout << parts.at(0) << endl;
 	cout << parts.at(1) << endl;
 
-	//root = parseStatement(str);
+	root = parseStatement(str);
 }
 
 Node* Expression::parseStatement(string str)	{
-	return NULL;
+	if (getMiddleExp(str) == '+' || getMiddleExp(str) == '-' || getMiddleExp(str) == '*' || getMiddleExp(str) == '^')	{
+		vector<string> parts = getLeftAndRight(str);
+		Node* newOpNode = new Node();
+		newOpNode->op = getMiddleExp(str);
+		newOpNode->isVar = false;
+		newOpNode->value = NULL;
+		newOpNode->left = parseStatement(stripParens(parts[0]));
+		newOpNode->right = parseStatement(stripParens(parts[1]));
+		return newOpNode;
+	}
+	if (isdigit(getMiddleExp(str)))	{
+		Node* newValNode = new Node();
+		newValNode->op = NULL;
+		newValNode->isVar = NULL;
+		char c = getMiddleExp(str);
+		newValNode->value = c - '0';
+		newValNode->left = NULL;
+		newValNode->right = NULL;
+		return newValNode;
+	}
+	
+}
+
+bool Expression::isInteger(const string & s)
+{
+	if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
+
+	char* p;
+	strtol(s.c_str(), &p, 10);
+
+	return (*p == 0);
 }
 
 int Expression::findIndexMiddleExp(string str)	{
@@ -46,7 +70,7 @@ int Expression::findIndexMiddleExp(string str)	{
 		}
 		if (left == right)	{
 			if (i != str.size() - 1)	{
-				return i+1;
+				return i + 1;
 			}
 			else	{
 				return i / 2;
@@ -68,8 +92,10 @@ vector<string> Expression::getLeftAndRight(string str)	{
 }
 
 string Expression::stripParens(string str)	{
-	str.erase(0, 1);  // trim right
-	str.erase(str.length() - 1);  // trim left
+	if (str.find('(') != -1)	{
+		str = str.substr(1, str.length() - 2);
+		return str;
+	}
 	return str;
 }
 
@@ -112,7 +138,7 @@ Expression::~Expression()	{
 }
 
 int Expression::getHeight() const	{
-	return getHeightFromNode(root);
+	return getHeightFromNode(root) - 1;	//don't include the root node
 }
 
 int Expression::getHeightFromNode(Node* node)	const{
