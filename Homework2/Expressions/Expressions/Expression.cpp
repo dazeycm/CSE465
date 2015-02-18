@@ -10,6 +10,39 @@ Expression::Expression(string str)	{
 	root = parseStatement(str);
 }
 
+Expression::Expression(const Expression &other)	{
+	root = copyHelper(other.root);
+}
+
+Expression &Expression::operator = (const Expression &other)	{
+	if (this != &other)	{
+		delete root;
+		root = copyHelper(other.root);
+	}
+	return *this;
+}
+
+Expression::~Expression()	{
+	delete root;
+}
+
+Node::~Node()	{ 
+	delete left;
+	delete right;
+	left = nullptr;
+	right = nullptr;
+}
+
+double Expression::evaluate(double x) const	{
+	return evaluateFromNode(root, x);
+}
+
+int Expression::getHeight() const	{
+	return getHeightFromNode(root) - 1;	//don't include the root node
+}
+
+//============================HELPER FUNCTIONS============================
+
 Node* Expression::parseStatement(string str)	{
 	if (getMiddleExp(str) == '+' || getMiddleExp(str) == '-' || getMiddleExp(str) == '*' || getMiddleExp(str) == '^')	{
 		vector<string> parts = getLeftAndRight(str);
@@ -17,13 +50,8 @@ Node* Expression::parseStatement(string str)	{
 		newOpNode->op = getMiddleExp(str);
 		newOpNode->isVar = false;
 		newOpNode->value = NULL;
-		//cout << "String: " << str << endl;
-		//cout << "Middle Expression: " << getMiddleExp(str) << endl;
-		//cout << "Left Part: " << stripParens(parts[0]) << endl;
-		//cout << "Right Part: " << stripParens(parts[1]) << endl;
 		newOpNode->left = parseStatement(stripParens(parts[0]));
 		newOpNode->right = parseStatement(stripParens(parts[1]));
-		cout << "Creating newOpNode" << endl;
 		return newOpNode;
 	}
 	if (isdigit(getMiddleExp(str)))	{
@@ -34,7 +62,6 @@ Node* Expression::parseStatement(string str)	{
 		newValNode->value = c - '0';
 		newValNode->left = NULL;
 		newValNode->right = NULL;
-		cout << "Creating newValNode" << endl;
 		return newValNode;
 	}
 	if (getMiddleExp(str) == 'x')	{
@@ -44,16 +71,14 @@ Node* Expression::parseStatement(string str)	{
 		newVarNode->value = 99;
 		newVarNode->left = NULL;
 		newVarNode->right = NULL;
-		cout << "Creating newVarNode" << endl;
 		return newVarNode;
 	}
-
 }
 
 bool Expression::isInteger(const string & s)
 {
-	if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
-
+	if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+')))
+		return false;
 	char* p;
 	strtol(s.c_str(), &p, 10);
 
@@ -106,10 +131,6 @@ string Expression::stripParens(string str)	{
 	return str;
 }
 
-Expression::Expression(const Expression &other)	{
-	root = copyHelper(other.root);
-}
-
 Node* Expression::copyHelper(const Node *other)	{
 	if (other == NULL)	{
 		return NULL;
@@ -121,45 +142,6 @@ Node* Expression::copyHelper(const Node *other)	{
 	newnode->left = copyHelper(other->left);
 	newnode->right = copyHelper(other->right);
 	return newnode;
-}
-
-Expression &Expression::operator = (const Expression &other)	{
-	if (this != &other)	{
-		delete root;
-		root = copyHelper(other.root);
-	}
-	return *this;
-}
-
-Expression::~Expression()	{
-	delete root;
-}
-
-Node::~Node()	{ 
-	delete left;
-	delete right;
-	left = nullptr;
-	right = nullptr;
-}
-
-void Expression::clear(Node* node)	{
-	if (node != NULL)	{
-		if (node->left != NULL) clear(node->left);
-		if (node->right != NULL) clear(node->right);
-		if (node->right == NULL && node->left == NULL)	{
-			if (node != root)	{
-				delete node;
-				node = nullptr;
-			}
-			else{
-				root = NULL;
-			}
-		}
-	}
-}
-
-int Expression::getHeight() const	{
-	return getHeightFromNode(root) - 1;	//don't include the root node
 }
 
 int Expression::getHeightFromNode(Node* node)	const{
@@ -174,5 +156,35 @@ int Expression::getHeightFromNode(Node* node)	const{
 	}
 	else{
 		return heightRight + 1;
+	}
+}
+
+double Expression::evaluateFromNode(Node* node, double x) const	{
+	if (node->left != NULL && node->right != NULL)	{
+		double leftVal = evaluateFromNode(node->left, x);
+		double rightVal = evaluateFromNode(node->right, x);
+		char op = node->op;
+		switch (op)	{
+			case '+':
+				return leftVal + rightVal;
+				break;
+			case '-':
+				return leftVal - rightVal;
+				break;
+			case '*':
+				return leftVal * rightVal;
+				break;
+			case '^':
+				return pow(leftVal, rightVal);
+				break;
+		}
+		double val = leftVal + rightVal;
+		return val;
+	}
+	else{
+		if (node->isVar)
+			return x;
+		else
+			return node->value;
 	}
 }
