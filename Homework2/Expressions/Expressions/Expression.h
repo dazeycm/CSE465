@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 struct Node		{
@@ -14,6 +15,11 @@ class Expression	{
 public:
 	Expression();										//done
 	Expression(string str);						
+	Node* parseStatement(string str);
+	int findIndexMiddleExp(string str);					//done
+	char getMiddleExp(string str);
+	vector<string> getLeftAndRight(string str);
+	string stripParens(string str);
 	Expression(const Expression &other);				//done
 	Node* copyHelper(const Node *node);					//done
 	~Expression();										//done
