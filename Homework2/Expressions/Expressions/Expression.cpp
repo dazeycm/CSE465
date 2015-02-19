@@ -3,6 +3,8 @@
 Expression::Expression()	{
 	root = new Node();
 	root->value = 0;
+	root->isVar = NULL;
+	root->op = NULL;
 	root->left = NULL;
 	root->right = NULL;
 }
@@ -62,8 +64,6 @@ Expression Expression::randomExpression(int height)	{
 			exp.root->op = '^';
 			break;
 	}
-
-	exp.root->toString(exp.root);
 
 	vector<Node*> oldNodes;
 	vector<Node*> newNodes;
@@ -217,7 +217,7 @@ Node* Expression::copyHelper(const Node *other)	{
 	if (other == NULL)	{
 		return NULL;
 	}
-	
+
 	Node *newnode = new Node();
 	newnode->op = other->op;
 	newnode->isVar = other->isVar;
@@ -273,9 +273,6 @@ double Expression::evaluateFromNode(Node* node, double x) const	{
 }
 
 Node* Expression::addRandomNode(Node* node, int count, int height){
-	if (node->value != NULL)	{
-		return NULL;
-	}
 	if (count != height - 1)	{
 		Node* newNode = new Node();
 		int chance = rand() % 4;
@@ -297,7 +294,6 @@ Node* Expression::addRandomNode(Node* node, int count, int height){
 		newNode->value = NULL;
 		newNode->left = NULL;
 		newNode->right = NULL;
-		newNode->toString(newNode);
 		return newNode;
 	}
 	else {
@@ -308,19 +304,15 @@ Node* Expression::addRandomNode(Node* node, int count, int height){
 			newNode->value = NULL;
 			newNode->left = NULL;
 			newNode->right = NULL;
-			newNode->toString(newNode);
 			return newNode;
 		}
 		else {
 			Node* newNode = new Node();
-			int r = rand() % 9;
-			cout << r << endl;
-			newNode->value = r + 1; // because 0 is boring, and does something weird with NULL that will break my code in an awful way
+			newNode->value = rand() % 10;
 			newNode->isVar = false;
 			newNode->op = NULL;
 			newNode->left = NULL;
 			newNode->right = NULL;
-			newNode->toString(newNode);
 			return newNode;
 		}
 	}
@@ -330,7 +322,6 @@ void Expression::changeNode(Node* node)	{
 	if (node->isVar != NULL && node->isVar == true)	{
 		node->isVar = false;
 		node->value = rand() % 10;
-		cout << "Changing an x to a number" << endl;
 	}
 	else if (node->op != NULL){
 		int chance = rand() % 4;
@@ -348,12 +339,10 @@ void Expression::changeNode(Node* node)	{
 			node->op = '^';
 			break;
 		}
-		cout << "Changing an operator" << endl;
 	}
 	else{
 		int chance = rand() % 10;
 		node->value = chance;
-		cout << "Changing an a number" << endl;
 	}
 }
 
@@ -383,7 +372,7 @@ string Expression::getStringSubTree(Node* node, string str)	const{
 
 string Expression::nodeToString(Node* node)	const{
 	string str = "";
-	if (node->value != NULL)	{
+	if (node->op == NULL && !node->isVar)	{
 		str += "(";
 		char c = node->value + '0';
 		str += c;
@@ -397,9 +386,4 @@ string Expression::nodeToString(Node* node)	const{
 	return str;
 }
 
-void Node::toString(Node* node)	{
-	cout << "op: " << node->op << endl;
-	cout << "isVar: " << node->isVar << endl;
-	cout << "value: " << node->value << endl;
-}
 

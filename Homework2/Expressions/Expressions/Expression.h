@@ -13,7 +13,6 @@ struct Node		{
 	char op;
 	bool isVar;
 	int value;
-	void toString(Node* node);
 	~Node();
 };
 
