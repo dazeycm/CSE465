@@ -13,6 +13,7 @@ struct Node		{
 	char op;
 	bool isVar;
 	int value;
+	void toString(Node* node);
 	~Node();
 };
 
@@ -40,7 +41,7 @@ private:
 	Node* copyHelper(const Node *node);					//done
 	int getHeightFromNode(Node* other) const;			//done
 	double evaluateFromNode(Node* node, double x) const;//done
-	static Node* addRandomNode(Node* root) const;					//done
+	static Node* addRandomNode(Node* root, int count, int height);//done
 	void changeNode(Node* node);						//done
 	int subTreeNodeCount(Node* node);					//done
 	string getStringSubTree(Node* node, string str) const;//done

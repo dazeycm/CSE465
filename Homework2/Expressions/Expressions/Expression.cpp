@@ -40,35 +40,46 @@ double Expression::evaluate(double x) const	{
 }
 
 Expression Expression::randomExpression(int height)	{
-	srand(time(NULL));
 	Expression exp;
 	exp.root = new Node();
 	exp.root->isVar = false;
 	exp.root->value = NULL;
+	exp.root->left = NULL;
+	exp.root->right = NULL;
 	int chance = rand() % 4;
 	switch (chance)	{
 		case 0:
 			exp.root->op = '+';
+			break;
 		case 1:
 			exp.root->op = '-';
+			break;
 		case 2:
 			exp.root->op = '*';
+			break;
 		case 3:
 			exp.root->op = '^';
+			break;
 	}
 
-	Node* node = exp.root;
+	vector<Node*> oldNodes;
+	vector<Node*> newNodes;
+	oldNodes.push_back(exp.root);
 	int count = 0;
-	while (true)	{
-		node->left = addRandomNode(node);
-		node->right = addRandomNode(node);
+	while (count < height)	{
+		for (Node* node : oldNodes)	{
+			if (node->value == NULL)	{
+				node->left = addRandomNode(node, count, height);
+				node->right = addRandomNode(node, count, height);
+				newNodes.push_back(node->left);
+				newNodes.push_back(node->right);
+			}
+		}
+		oldNodes.clear();
+		oldNodes = newNodes;
+		newNodes.clear();
+		count += 1;
 	}
-
-	exp.root->op = '+';
-	exp.root->isVar = NULL;
-	exp.root->value = NULL;
-	exp.root->left = NULL;
-	exp.root->right = NULL;
 	return exp;
 }
 
@@ -80,7 +91,6 @@ string Expression::toString() const	{
 
 void Expression::mutate()	{
 	Node* node = root;
-	srand(time(NULL));
 
 	while (true)	{
 		int nodeCount = subTreeNodeCount(node);
@@ -258,34 +268,86 @@ double Expression::evaluateFromNode(Node* node, double x) const	{
 	}
 }
 
-Node* Expression::addRandomNode(Node* node){
-	if (node->op == NULL)	{
+Node* Expression::addRandomNode(Node* node, int count, int height){
+	if (node->value != NULL)	{
 		return NULL;
+	}
+	if (count != height - 1)	{
+		Node* newNode = new Node();
+		int chance = rand() % 4;
+		switch (chance)	{
+		case 0:
+			newNode->op = '+';
+			break;
+		case 1:
+			newNode->op = '-';
+			break;
+		case 2:
+			newNode->op = '*';
+			break;
+		case 3:
+			newNode->op = '^';
+			break;
+		}
+		newNode->isVar = false;
+		newNode->value = NULL;
+		newNode->left = NULL;
+		newNode->right = NULL;
+		newNode->toString(newNode);
+		return newNode;
+	}
+	else {
+		if (rand() % 2 == 0)	{
+			Node* newNode = new Node();
+			newNode->isVar = true;
+			newNode->op = NULL;
+			newNode->value = NULL;
+			newNode->left = NULL;
+			newNode->right = NULL;
+			newNode->toString(newNode);
+			return newNode;
+		}
+		else {
+			Node* newNode = new Node();
+			newNode->value = rand() % 10;
+			newNode->isVar = false;
+			newNode->op = NULL;
+			newNode->left = NULL;
+			newNode->right = NULL;
+			newNode->toString(newNode);
+			return newNode;
+		}
 	}
 }
 
 void Expression::changeNode(Node* node)	{
-	srand(time(NULL));
-	if (node->isVar != NULL)	{
+	if (node->isVar != NULL && node->isVar == true)	{
 		node->isVar = false;
 		node->value = rand() % 10;
+		cout << "Changing an x to a number" << endl;
 	}
 	else if (node->op != NULL){
 		int chance = rand() % 4;
 		switch (chance)	{
 		case 0:
 			node->op = '+';
+			break;
 		case 1:
 			node->op = '-';
+			break;
 		case 2:
 			node->op = '*';
+			break;
 		case 3:
 			node->op = '^';
+			break;
 		}
+		cout << "Changing an operator" << endl;
 	}
 	else{
 		int chance = rand() % 10;
 		node->value = chance;
+		cout << "Changing an a number" << endl;
 	}
 }
 
@@ -326,8 +388,14 @@ string Expression::nodeToString(Node* node)	const{
 		str += "x";
 		str += ")";
 	}
-
 	return str;
 }
 
+void Node::toString(Node* node)	{
+	cout << "op: " << node->op << endl;
+	cout << "isVar: " << node->isVar << endl;
+	cout << "value: " << node->value << endl;
+	cout << "left: " << node->left << endl;
+	cout << "right: " << node->right << endl;
+}
 
