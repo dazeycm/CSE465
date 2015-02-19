@@ -31,6 +31,7 @@ public:
 private:
 	Node *root;										
 	Node* parseStatement(string str);					//done
+	int convertToInt(string str) const;					//done and called 0 times in my program :)
 	bool isInteger(const string & s);					//done
 	int findIndexMiddleExp(string str);					//done
 	char getMiddleExp(string str);						//done
@@ -43,5 +44,5 @@ private:
 	void changeNode(Node* node);						//done
 	int subTreeNodeCount(Node* node);					//done
 	string getTreeInOrder(Node* node, string str) const;//done
-	string nodeToString(Node* node, string str) const;					//done
+	string nodeToString(Node* node) const;					//done
 };

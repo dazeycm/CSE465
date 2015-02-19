@@ -4,7 +4,7 @@ using namespace std;
 
 int main()	{
 
-	Expression exp("(((x)+(4))-((3)*(7)))");
+	Expression exp("(((3)*(4))+(7))");
 	cout << exp.toString() << endl;
 	cout << exp.evaluate(3) << endl;
 	exp.mutate();

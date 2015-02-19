@@ -26,7 +26,7 @@ Expression::~Expression()	{
 	delete root;
 }
 
-Node::~Node()	{ 
+Node::~Node()	{
 	delete left;
 	delete right;
 	left = nullptr;
@@ -42,15 +42,16 @@ Expression Expression::randomExpression(int height)	{
 }
 
 string Expression::toString() const	{
-	string ret = "";
+	string ret = "(";
 	string str = getTreeInOrder(root, ret);
+	str += ")";
 	return str;
 }
 
 void Expression::mutate()	{
 	Node* node = root;
 	srand(time(NULL));
-	
+
 	while (true)	{
 		int nodeCount = subTreeNodeCount(node);
 		int val = rand() % nodeCount;
@@ -103,6 +104,13 @@ Node* Expression::parseStatement(string str)	{
 		newVarNode->right = NULL;
 		return newVarNode;
 	}
+}
+
+int Expression::convertToInt(string str) const	{
+	std::istringstream converter(str);
+	int ret;
+	converter >> ret;
+	return ret;
 }
 
 bool Expression::isInteger(const string & s)
@@ -195,18 +203,18 @@ double Expression::evaluateFromNode(Node* node, double x) const	{
 		double rightVal = evaluateFromNode(node->right, x);
 		char op = node->op;
 		switch (op)	{
-			case '+':
-				return leftVal + rightVal;
-				break;
-			case '-':
-				return leftVal - rightVal;
-				break;
-			case '*':
-				return leftVal * rightVal;
-				break;
-			case '^':
-				return pow(leftVal, rightVal);
-				break;
+		case '+':
+			return leftVal + rightVal;
+			break;
+		case '-':
+			return leftVal - rightVal;
+			break;
+		case '*':
+			return leftVal * rightVal;
+			break;
+		case '^':
+			return pow(leftVal, rightVal);
+			break;
 		}
 		double val = leftVal + rightVal;
 		return val;
@@ -232,14 +240,14 @@ void Expression::changeNode(Node* node)	{
 	else if (node->op != NULL){
 		int chance = rand() % 4;
 		switch (chance)	{
-			case 0:
-				node->op = '+';
-			case 1:
-				node->op = '-';
-			case 2:
-				node->op = '*';
-			case 3:
-				node->op = '^';
+		case 0:
+			node->op = '+';
+		case 1:
+			node->op = '-';
+		case 2:
+			node->op = '*';
+		case 3:
+			node->op = '^';
 		}
 	}
 	else{
@@ -258,24 +266,78 @@ int Expression::subTreeNodeCount(Node* node)	{
 }
 
 string Expression::getTreeInOrder(Node* node, string str)	const{
-	if (node->right == NULL && node->left == NULL)	{
-		return nodeToString(node, str);
+	
+	if (node->left != NULL && node->right != NULL)	{
+		if (node->op != NULL)	{
+			if (node->left->op != NULL && node->right->op != NULL)	{
+				str += getTreeInOrder(node->left, str);
+				str += node->op;
+				str += getTreeInOrder(node->right, str);
+				return str;
+			}
+			else if (node->left->op == NULL && node->right->op != NULL) {
+				str += nodeToString(node->left);
+				str += node->op;
+				str += getTreeInOrder(node->right, str);
+				return str;
+			}
+			else if (node->left->op != NULL && node->right->op == NULL) {
+				str += getTreeInOrder(node->left, str);
+				str += node->op;
+				str += nodeToString(node->right);
+				return str;
+			}
+			else {
+				str += "(";
+				str += nodeToString(node->left);
+				str += node->op;
+				str += nodeToString(node->left);
+				str += ")";
+				return str;
+			}
+		}
 	}
-	else if (node->right == NULL || node->left == NULL) {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*if (node->left == NULL && node->right == NULL)	{
+		return nodeToString(node);
+	}
+	else if (node->op != NULL)	{
+		if (node->left == NULL && node->right == NULL)	{
+			str += "(";
+			str += nodeToString(node);
+			str += node->op;
+			str += nodeToString(node);
+			str += ")";
+			return str;
+		}
+		else{
 
+		}
 	}
 
-	str += getTreeInOrder(node->left, str);
-	str += node->op;
-	str += getTreeInOrder(node->right, str);
+
+
+	else{
+		str += getTreeInOrder(node->left, str);
+		str += node->op;
+		str += getTreeInOrder(node->right, str);
+	}*/
 }
 
-string Expression::nodeToString(Node* node, string str)	const{
+string Expression::nodeToString(Node* node)	const{
+	string str = "";
 	if (node->value != NULL)	{
 		str += "(";
-		int result;
-		stringstream(node->value) >> result;
-		str += result;
+		str += node->value;
 		str += ")";
 	}
 	else if (node->isVar){
@@ -283,11 +345,7 @@ string Expression::nodeToString(Node* node, string str)	const{
 		str += "x";
 		str += ")";
 	}
-	else{
-		str += "(";
-		str += node->op;
-		str += ")";
-	}
+
 	return str;
 }
 
