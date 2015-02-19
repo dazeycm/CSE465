@@ -28,8 +28,7 @@ public:
 	void mutate();										//done
 	int getHeight() const;								//done
 private:
-	Node *root;
-	int numNodes;										//done
+	Node *root;										
 	Node* parseStatement(string str);					//done
 	bool isInteger(const string & s);					//done
 	int findIndexMiddleExp(string str);					//done
