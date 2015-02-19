@@ -1,5 +1,6 @@
+#Craig Dazey
+
 from tkinter.filedialog import askopenfilename
-import traceback
 
 var = {}
 
