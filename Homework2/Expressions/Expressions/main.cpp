@@ -4,9 +4,10 @@ using namespace std;
 
 int main()	{
 
-	Expression exp("((3+x)+7)");
+	Expression exp("((3+1)^x)");
 	cout << exp.evaluate(3);
-	Expression exp2 = exp;
+	exp.mutate();
+	cout << exp.evaluate(3);
 
 	return 0;
 }

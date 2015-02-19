@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
+
 using namespace std;
 
 struct Node		{
@@ -22,10 +25,11 @@ public:
 	double evaluate(double x) const;					//done
 	static Expression randomExpression(int height);
 	string toString() const;
-	void mutate();
+	void mutate();										//done
 	int getHeight() const;								//done
 private:
 	Node *root;
+	int numNodes;										//done
 	Node* parseStatement(string str);					//done
 	bool isInteger(const string & s);					//done
 	int findIndexMiddleExp(string str);					//done
@@ -34,5 +38,8 @@ private:
 	string stripParens(string str);						//done
 	Node* copyHelper(const Node *node);					//done
 	int getHeightFromNode(Node* other) const;			//done
-	double evaluateFromNode(Node* node, double x) const;
+	double evaluateFromNode(Node* node, double x) const;//done
+	Node* addRandomNode(Node* root);					//done
+	void changeNode(Node* node);						//done
+	int subTreeNodeCount(Node* node);					//done
 };

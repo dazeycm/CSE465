@@ -37,6 +37,31 @@ double Expression::evaluate(double x) const	{
 	return evaluateFromNode(root, x);
 }
 
+Expression Expression::randomExpression(int height)	{
+	
+	return NULL;
+}
+
+void Expression::mutate()	{
+	Node* node = root;
+	srand(time(NULL));
+	
+	while (true)	{
+		int nodeCount = subTreeNodeCount(node);
+		int val = rand() % nodeCount;
+		if (val == 0)	{
+			changeNode(node);
+			break;
+		}
+		else if (val <= subTreeNodeCount(node->left)){
+			node = node->left;
+		}
+		else{
+			node = node->right;
+		}
+	}
+}
+
 int Expression::getHeight() const	{
 	return getHeightFromNode(root) - 1;	//don't include the root node
 }
@@ -52,25 +77,28 @@ Node* Expression::parseStatement(string str)	{
 		newOpNode->value = NULL;
 		newOpNode->left = parseStatement(stripParens(parts[0]));
 		newOpNode->right = parseStatement(stripParens(parts[1]));
+		numNodes += 1;
 		return newOpNode;
 	}
 	if (isdigit(getMiddleExp(str)))	{
 		Node* newValNode = new Node();
 		newValNode->op = NULL;
-		newValNode->isVar = NULL;
+		newValNode->isVar = false;
 		char c = getMiddleExp(str);
 		newValNode->value = c - '0';
 		newValNode->left = NULL;
 		newValNode->right = NULL;
+		numNodes += 1;
 		return newValNode;
 	}
 	if (getMiddleExp(str) == 'x')	{
 		Node* newVarNode = new Node();
-		newVarNode->op = getMiddleExp(str);
+		newVarNode->op = NULL;
 		newVarNode->isVar = true;
-		newVarNode->value = 99;
+		newVarNode->value = NULL;
 		newVarNode->left = NULL;
 		newVarNode->right = NULL;
+		numNodes += 1;
 		return newVarNode;
 	}
 }
@@ -188,3 +216,42 @@ double Expression::evaluateFromNode(Node* node, double x) const	{
 			return node->value;
 	}
 }
+
+Node* Expression::addRandomNode(Node* node)	{
+	return NULL;
+}
+
+void Expression::changeNode(Node* node)	{
+	srand(time(NULL));
+	if (node->isVar != NULL)	{
+		node->isVar = false;
+		node->value = rand() % 10;
+	}
+	else if (node->op != NULL){
+		int chance = rand() % 4;
+		switch (chance)	{
+			case 0:
+				node->op = '+';
+			case 1:
+				node->op = '-';
+			case 2:
+				node->op = '*';
+			case 3:
+				node->op = '^';
+		}
+	}
+	else{
+		int chance = rand() % 10;
+		node->value = chance;
+	}
+}
+
+int Expression::subTreeNodeCount(Node* node)	{
+	if (node == NULL)	{
+		return 0;
+	}
+	else
+		return 1 + subTreeNodeCount(node->left) + subTreeNodeCount(node->right);
+}
+
+
