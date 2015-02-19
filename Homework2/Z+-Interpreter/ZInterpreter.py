@@ -67,7 +67,7 @@ def doOp(parts):
 
 
 def printVars():
-    for key in var:
+    for key in sorted(var.keys()):
         print(key + ' = ' + str(var[key]))
 
 
