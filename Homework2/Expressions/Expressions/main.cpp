@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include "Expression.h"
-#include "vld.h"
 using namespace std;
 
 int main()	{
