@@ -38,8 +38,13 @@ double Expression::evaluate(double x) const	{
 }
 
 Expression Expression::randomExpression(int height)	{
-	
 	return NULL;
+}
+
+string Expression::toString() const	{
+	string ret = "";
+	string str = getTreeInOrder(root, ret);
+	return str;
 }
 
 void Expression::mutate()	{
@@ -77,7 +82,6 @@ Node* Expression::parseStatement(string str)	{
 		newOpNode->value = NULL;
 		newOpNode->left = parseStatement(stripParens(parts[0]));
 		newOpNode->right = parseStatement(stripParens(parts[1]));
-		numNodes += 1;
 		return newOpNode;
 	}
 	if (isdigit(getMiddleExp(str)))	{
@@ -88,7 +92,6 @@ Node* Expression::parseStatement(string str)	{
 		newValNode->value = c - '0';
 		newValNode->left = NULL;
 		newValNode->right = NULL;
-		numNodes += 1;
 		return newValNode;
 	}
 	if (getMiddleExp(str) == 'x')	{
@@ -98,7 +101,6 @@ Node* Expression::parseStatement(string str)	{
 		newVarNode->value = NULL;
 		newVarNode->left = NULL;
 		newVarNode->right = NULL;
-		numNodes += 1;
 		return newVarNode;
 	}
 }
@@ -250,8 +252,43 @@ int Expression::subTreeNodeCount(Node* node)	{
 	if (node == NULL)	{
 		return 0;
 	}
-	else
+	else {
 		return 1 + subTreeNodeCount(node->left) + subTreeNodeCount(node->right);
+	}
+}
+
+string Expression::getTreeInOrder(Node* node, string str)	const{
+	if (node->right == NULL && node->left == NULL)	{
+		return nodeToString(node, str);
+	}
+	else if (node->right == NULL || node->left == NULL) {
+
+	}
+
+	str += getTreeInOrder(node->left, str);
+	str += node->op;
+	str += getTreeInOrder(node->right, str);
+}
+
+string Expression::nodeToString(Node* node, string str)	const{
+	if (node->value != NULL)	{
+		str += "(";
+		int result;
+		stringstream(node->value) >> result;
+		str += result;
+		str += ")";
+	}
+	else if (node->isVar){
+		str += "(";
+		str += "x";
+		str += ")";
+	}
+	else{
+		str += "(";
+		str += node->op;
+		str += ")";
+	}
+	return str;
 }
 
 

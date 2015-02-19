@@ -3,6 +3,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
+#include <sstream>
 
 using namespace std;
 
@@ -41,4 +42,6 @@ private:
 	Node* addRandomNode(Node* root);					//done
 	void changeNode(Node* node);						//done
 	int subTreeNodeCount(Node* node);					//done
+	string getTreeInOrder(Node* node, string str) const;//done
+	string nodeToString(Node* node, string str) const;					//done
 };
