@@ -46,6 +46,7 @@ Expression Expression::randomExpression(int height)	{
 	exp.root->value = NULL;
 	exp.root->left = NULL;
 	exp.root->right = NULL;
+
 	int chance = rand() % 4;
 	switch (chance)	{
 		case 0:
@@ -61,6 +62,8 @@ Expression Expression::randomExpression(int height)	{
 			exp.root->op = '^';
 			break;
 	}
+
+	exp.root->toString(exp.root);
 
 	vector<Node*> oldNodes;
 	vector<Node*> newNodes;
@@ -80,6 +83,7 @@ Expression Expression::randomExpression(int height)	{
 		newNodes.clear();
 		count += 1;
 	}
+
 	return exp;
 }
 
@@ -309,7 +313,9 @@ Node* Expression::addRandomNode(Node* node, int count, int height){
 		}
 		else {
 			Node* newNode = new Node();
-			newNode->value = rand() % 10;
+			int r = rand() % 9;
+			cout << r << endl;
+			newNode->value = r + 1; // because 0 is boring, and does something weird with NULL that will break my code in an awful way
 			newNode->isVar = false;
 			newNode->op = NULL;
 			newNode->left = NULL;
@@ -395,7 +401,5 @@ void Node::toString(Node* node)	{
 	cout << "op: " << node->op << endl;
 	cout << "isVar: " << node->isVar << endl;
 	cout << "value: " << node->value << endl;
-	cout << "left: " << node->left << endl;
-	cout << "right: " << node->right << endl;
 }
 
