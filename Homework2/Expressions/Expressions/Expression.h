@@ -40,9 +40,9 @@ private:
 	Node* copyHelper(const Node *node);					//done
 	int getHeightFromNode(Node* other) const;			//done
 	double evaluateFromNode(Node* node, double x) const;//done
-	Node* addRandomNode(Node* root);					//done
+	static Node* addRandomNode(Node* root) const;					//done
 	void changeNode(Node* node);						//done
 	int subTreeNodeCount(Node* node);					//done
-	string getTreeInOrder(Node* node, string str) const;//done
+	string getStringSubTree(Node* node, string str) const;//done
 	string nodeToString(Node* node) const;					//done
 };

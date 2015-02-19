@@ -3,6 +3,8 @@
 Expression::Expression()	{
 	root = new Node();
 	root->value = 0;
+	root->left = NULL;
+	root->right = NULL;
 }
 
 Expression::Expression(string str)	{
@@ -38,13 +40,41 @@ double Expression::evaluate(double x) const	{
 }
 
 Expression Expression::randomExpression(int height)	{
-	return NULL;
+	srand(time(NULL));
+	Expression exp;
+	exp.root = new Node();
+	exp.root->isVar = false;
+	exp.root->value = NULL;
+	int chance = rand() % 4;
+	switch (chance)	{
+		case 0:
+			exp.root->op = '+';
+		case 1:
+			exp.root->op = '-';
+		case 2:
+			exp.root->op = '*';
+		case 3:
+			exp.root->op = '^';
+	}
+
+	Node* node = exp.root;
+	int count = 0;
+	while (true)	{
+		node->left = addRandomNode(node);
+		node->right = addRandomNode(node);
+	}
+
+	exp.root->op = '+';
+	exp.root->isVar = NULL;
+	exp.root->value = NULL;
+	exp.root->left = NULL;
+	exp.root->right = NULL;
+	return exp;
 }
 
 string Expression::toString() const	{
-	string ret = "(";
-	string str = getTreeInOrder(root, ret);
-	str += ")";
+	string ret = "";
+	string str = getStringSubTree(root, ret);
 	return str;
 }
 
@@ -173,6 +203,7 @@ Node* Expression::copyHelper(const Node *other)	{
 	if (other == NULL)	{
 		return NULL;
 	}
+	
 	Node *newnode = new Node();
 	newnode->op = other->op;
 	newnode->isVar = other->isVar;
@@ -227,8 +258,10 @@ double Expression::evaluateFromNode(Node* node, double x) const	{
 	}
 }
 
-Node* Expression::addRandomNode(Node* node)	{
-	return NULL;
+Node* Expression::addRandomNode(Node* node){
+	if (node->op == NULL)	{
+		return NULL;
+	}
 }
 
 void Expression::changeNode(Node* node)	{
@@ -265,79 +298,27 @@ int Expression::subTreeNodeCount(Node* node)	{
 	}
 }
 
-string Expression::getTreeInOrder(Node* node, string str)	const{
-	
-	if (node->left != NULL && node->right != NULL)	{
-		if (node->op != NULL)	{
-			if (node->left->op != NULL && node->right->op != NULL)	{
-				str += getTreeInOrder(node->left, str);
-				str += node->op;
-				str += getTreeInOrder(node->right, str);
-				return str;
-			}
-			else if (node->left->op == NULL && node->right->op != NULL) {
-				str += nodeToString(node->left);
-				str += node->op;
-				str += getTreeInOrder(node->right, str);
-				return str;
-			}
-			else if (node->left->op != NULL && node->right->op == NULL) {
-				str += getTreeInOrder(node->left, str);
-				str += node->op;
-				str += nodeToString(node->right);
-				return str;
-			}
-			else {
-				str += "(";
-				str += nodeToString(node->left);
-				str += node->op;
-				str += nodeToString(node->left);
-				str += ")";
-				return str;
-			}
+string Expression::getStringSubTree(Node* node, string str)	const{
+		if (node->op == NULL)	{
+			return nodeToString(node);
 		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*if (node->left == NULL && node->right == NULL)	{
-		return nodeToString(node);
-	}
-	else if (node->op != NULL)	{
-		if (node->left == NULL && node->right == NULL)	{
-			str += "(";
-			str += nodeToString(node);
-			str += node->op;
-			str += nodeToString(node);
-			str += ")";
-			return str;
+		else {
+			string temp = "";
+			temp += "(";
+			temp += getStringSubTree(node->left, str);
+			temp += node->op;
+			temp += getStringSubTree(node->right, str);
+			temp += ")";
+			return temp;
 		}
-		else{
-
-		}
-	}
-
-
-
-	else{
-		str += getTreeInOrder(node->left, str);
-		str += node->op;
-		str += getTreeInOrder(node->right, str);
-	}*/
 }
 
 string Expression::nodeToString(Node* node)	const{
 	string str = "";
 	if (node->value != NULL)	{
 		str += "(";
-		str += node->value;
+		char c = node->value + '0';
+		str += c;
 		str += ")";
 	}
 	else if (node->isVar){
