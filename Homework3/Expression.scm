@@ -27,13 +27,10 @@
     (display "Number less than -25: ")
     (display (cadr lst))
     (NEWLINE)
-    (display "Number between -25 and 25: ")
+    (display "Number between -25 && 25: ")
     (display (caddr lst))
     (NEWLINE)
     (display "Number greather than 25: ")
     (display (cadddr lst))
 )
-
-         
-
        
