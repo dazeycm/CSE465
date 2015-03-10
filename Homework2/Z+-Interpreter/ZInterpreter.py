@@ -7,7 +7,7 @@ def createFileOptions():
     options = {}
     options['defaultextension'] = '.txt'
     options['filetypes'] = [('all files', '.*'), ('text files', '.txt')]
-    options['initialfile'] = r'C:\Users\damonde\Desktop\CSE465\Homework1\prog4.zpm'
+    options['initialfile'] = r'C:\Users\damonde\Desktop\CSE465\Homework1\prog6.zpm'
     options['title'] = 'Open source file'
     return options
 

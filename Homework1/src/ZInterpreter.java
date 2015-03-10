@@ -55,7 +55,7 @@ public class ZInterpreter {
             if (vars.containsKey(parts[2])) {
                 vars.put(parts[0], vars.get(parts[0]) - vars.get(parts[2]));
             } else {
-                vars.put(parts[0], Integer.parseInt(parts[2]) - vars.get(parts[0]));
+                vars.put(parts[0], vars.get(parts[0]) - Integer.parseInt(parts[2]));
             }
         }
         if(parts[1].contains("*")) {
