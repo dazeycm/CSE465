@@ -1,0 +1,9 @@
+(define (y s lis)
+    (cond
+        ((null? lis) '() )
+        ((equal? s (car lis)) lis)
+        (else (y s (cdr lis)))
+))
+
+
+The above function returns a substring of lis from the first appearance of s

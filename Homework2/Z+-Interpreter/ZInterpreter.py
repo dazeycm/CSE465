@@ -1,5 +1,6 @@
+#Craig Dazey
+
 from tkinter.filedialog import askopenfilename
-import traceback
 
 var = {}
 
@@ -67,7 +68,7 @@ def doOp(parts):
 
 
 def printVars():
-    for key in var:
+    for key in sorted(var.keys()):
         print(key + ' = ' + str(var[key]))
 
 
