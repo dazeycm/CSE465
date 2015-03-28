@@ -1,0 +1,13 @@
+9. Define static binding and dynamic binding.
+
+The difference between these two types of binding is when the binding occurs. If something has static binding, then that means that references are resolved at compile time. When the program is compiled, every reference will bound at this time. If something as dynamic binding, it means that references are resolved at run-time. The references will only be binded after the program has been compiled and ran. 
+
+13. Define lifetime, scope, static scope, and dynamic scope.
+
+Liftime - This is the space in your code where a reference can be accessed. 
+
+Scope - Scope is basically the lifetime where a binding is still valid. 
+
+Static Scope - Static Scope (lexical scope) depends really on the location of the code, and can be determined when the program is compiled. When a variable is used, there is a set instance of the variable that will be accessed.
+
+Dyanmic Scope - Dynamic scoping depends on the state of the program. When a variable is accessed, depending on when the variable was last changed or accessed, it can have different values. Because of this, dynamic scoping resolution can only be determined at run time. 
