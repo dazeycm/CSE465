@@ -1,0 +1,18 @@
+1. (10/10) Determine the results of the following queries, given the following definitions:
+
+A) likes(fred, Z), likes(sue, Z). 
+	Z = chocolate
+	Z = chips
+
+B) friends(X, sue), likes(X, chips). 
+	X = fred
+
+C) [a,b,c,d] = [X|Y]. 
+	X = a
+	Y = [b,c,d]
+
+D) lw(2, [1,2,1,2]).
+	false
+
+E) ok([0,1,2,2,1,0]).
+	false
