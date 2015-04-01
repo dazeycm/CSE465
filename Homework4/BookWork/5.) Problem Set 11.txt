@@ -1,0 +1,37 @@
+Given the following calling sequences and assuming that dynamic scoping
+is used, what variables are visible during execution of the last function
+called? Include with each visible variable the name of the function in
+which it was defined.
+
+a. main calls fun1; fun1 calls fun2; fun2 calls fun3.
+	main - a
+	fun1 - b
+	fun2 - c
+	fun3 - d,e,f
+
+b. main calls fun1; fun1 calls fun3.
+	main - a
+	fun1 - b, c
+	fun3 - d, e, f
+
+c. main calls fun2; fun2 calls fun3; fun3 calls fun1.
+	main - a
+	fun1 - b, c, d
+	fun3 - e, f
+
+d. main calls fun3; fun3 calls fun1.
+	main - a
+	fun1 - b, c, d	
+	fun3 - e, f
+
+e. main calls fun1; fun1 calls fun3; fun3 calls fun2.
+	main - a
+	fun1 - b
+	fun2 - c, d, e
+	fun3 - f
+
+f. main calls fun3; fun3 calls fun2; fun2 calls fun1.
+	main - a
+	fun1 - b, c, d
+	fun2 - e
+	fun3 - f
