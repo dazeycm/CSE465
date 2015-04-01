@@ -1,0 +1,33 @@
+12. What languages support negative subscripts?
+	The book specifically mentions ruby and lua in the chapter. It mentions perl later in the text
+	as supportive of negative subscripts. It oddly says that python does not support this. This is 
+	false as the current version of python does in fact support negative subscripts. This however
+	was probably not the case when the book was printed. After some googling I found that some 
+	other languages like C and C++ also support negative subscripts. 
+
+39. Why are reference variables in C++ better than pointers for formal
+parameters?
+	They are better because after you initialize a reference variable in C++, it can never 
+	reference any other variables, and it must be initialized when declared. This is not true with 
+	pointers. In a way, this reference acts like a pointer that always points at the same thing, 
+	making it safer than a pointer as it will be harder to make mistakes. You also don't have to 
+	dereference like you would with a pointer. 
+
+41. Describe the lazy and eager approaches to reclaiming garbage.
+	Lazy - Lazy garbage collection only occurs when the system needs more memory. 
+	One way of implementing this is a multi-pass system. The first pass through sets all the 
+	"reachable" fields of the memory locations to some kind of false value. In a second pass 
+	it will then mark all memory locations that it can access with a true value. Then lastly, it will 
+	delete all the memory locations with a 0, as they can no longer be accessed. The upside to this is 
+	that there's no overhead on the user, and the downside is that it takes time to complete and can 
+	hurt the efficiency of your program.
+
+	Eager - Eager garbage collection entails reclaiming memory the second that it is no longer 
+	accessible. This can be done through something like reference counting. Each block of memory will 
+	store how many references that point to it. When this number becomes 0, the memory is freed. The 
+	upside to this is that memory is readily available. The downside is that there is a lot of overhead. 
+	You need to use memory to store the count of references, and there's some computation involved to 
+	add or subtract the number of references. 
+
+	
+	
