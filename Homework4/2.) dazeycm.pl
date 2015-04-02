@@ -19,4 +19,4 @@ max([X|T], P) :- max(T, P), P > X.
 
 maxnum(A, B, C, X) :- max([A, B, C], X).
 
-partitionable(L) :- append(X, Y, L), sum(X, P), sum(Y, P).
+partitionable(L) :- append(X, Y, L), sum(X, P), sum(Y, P), !.
