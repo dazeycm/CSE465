@@ -20,14 +20,14 @@ I would argue that an optimizing compiler should not be able to change the order
 
 ## Programming Exercises
 ### 4.
-    int a = 3;
+    public int a = 3;
 
     public int whoops() {
       a += 5;
       return 4;
     }
 
-    public static void main(String[] args)  {
+    public static void test()  {
       a = a + whoops(); // returns 7
       a = whoops() + a; // returns 12
     }
@@ -35,3 +35,25 @@ I would argue that an optimizing compiler should not be able to change the order
 Java always evaluates expressions in left to right order, so it's possible to avoid the problems that come with calling functions in operand evaluation.
 
 ### 7.
+    int a = 0;
+
+    public void printEm(int a, int b)  {
+      System.out.printf("%d, %d\n", a, b);
+    }
+
+    public static void test()  {
+      int j;
+
+      for(int i = 0; i < 5; i++)	{
+        test(j, j++);
+      }
+      //prints 0 0, 1 1, 2 2, 3 3, 4 4
+
+      for(int i = 0; i < 5; i++)	{
+        test(j++, j);
+      }
+      //prints 5 6, 6 7, 7 8, 8 9, 9, 10
+
+The left parameter is calculated before the right parameter.
+
+    }
