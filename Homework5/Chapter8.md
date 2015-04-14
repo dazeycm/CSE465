@@ -26,6 +26,31 @@ I can imagine a situation like th following. Say for example you're checking to 
 
 ## Programming Exercises
 ### 3c.
+```java
+    int j = 0;
+		int k = 8;
+		switch(k)	{
+			case 1:
+			case 2:
+				j = 2 * k - 1;
+				break;
+			case 3:
+			case 5:
+				j = 3 * k + 1;
+				break;
+			case 4:
+				j = 4 * k - 1;
+				break;
+			case 6:
+			case 7:
+			case 8:
+				j = k - 2;
+				break;
+			default:
+				System.out.println("error");
+				break;
+		}
+```
 
 ### 3e.
 
