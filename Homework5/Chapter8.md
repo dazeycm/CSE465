@@ -53,5 +53,84 @@ I can imagine a situation like th following. Say for example you're checking to 
 ```
 
 ### 3e.
+```ruby
+k = 5
+
+case k
+when 1, 2
+j = 3 * k - 1
+when 3, 5
+j = 3 * k + 1
+when 4
+j = 4 * k - 1
+when 6, 7, 8
+j = k - 2
+else
+puts "error"
+end
+
+puts j
+```
 
 ### 6.
+```python
+if first < second:
+    if second < third:
+        min = first
+        mid = second
+        max = third
+    else:
+        min = first
+        mid = third
+        max = second
+elif second < first:
+    if first < third:
+        min = second
+        mid = first
+        max = third
+    else:
+        min = second
+        mid = third
+        max = first
+elif third < first:
+    if first < second:
+        min = third
+        mid = first
+        max = second
+    else:
+        min = third
+        mid = second
+        max = first
+```
+
+```python
+if first < second and second < third:
+    min = first
+    mid = second
+    max = third
+
+if first < second and third < second:
+    min = first
+    mid = third
+    max = second
+
+if second < first and first < third:
+    min = second
+    mid = first
+    max = third
+
+if second < first and third < first:
+    min = second
+    mid = third
+    max = first
+
+if third < first and first < second:
+    min = third
+    mid = first
+    max = second
+
+if third < first and second < first:
+    min = third
+    mid = second
+    max = first
+```
