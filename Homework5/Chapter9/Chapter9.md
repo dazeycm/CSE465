@@ -54,9 +54,3 @@ So ```value = 2, list[5] = {`1, 3, 5, 7, 9`}``` will remain true for all of the 
 
 ```swap(value, list[value])```
 ```value = 2, list[5] = {3, 1, 5, 7, 9}```
-
-
-## Programming Exercises
-### 5.
-
-### 6.
