@@ -25,6 +25,7 @@ public class Program  {
     Console.WriteLine("Time to pass by reference: ");
     Console.WriteLine(stopWatch.ElapsedMilliseconds);
 
+    stopWatch.Reset();
     stopWatch.Start();
     int[,] test2 = new int[100, 100];
     for(int i = 0; i < 1000000000; i++)  {
@@ -35,3 +36,26 @@ public class Program  {
     Console.WriteLine(stopWatch.ElapsedMilliseconds);
   }
 }
+
+/*
+  C:\Users\Craig\Desktop\CSE465\Homework5\Chapter9>ProgExe_6.exe
+  Time to pass by reference:
+  733
+  Time to pass by value:
+  730
+
+  C:\Users\Craig\Desktop\CSE465\Homework5\Chapter9>ProgExe_6.exe
+  Time to pass by reference:
+  745
+  Time to pass by value:
+  731
+
+  C:\Users\Craig\Desktop\CSE465\Homework5\Chapter9>ProgExe_6.exe
+  Time to pass by reference:
+  733
+  Time to pass by value:
+  735
+
+  As shown above, it looks like pass by refernece and pass by value
+  take almost exactly the same amount of time to complete.
+*/
