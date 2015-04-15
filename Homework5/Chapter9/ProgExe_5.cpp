@@ -91,8 +91,9 @@ int main()  {
 
     From the results I think it's safe to say that dynamic is a little quicker
     at matrix multiplication than its static counterpart. However, the time difference is
-    actually very small between the two tests (< 10000 microseconds or 1 hundreth of a second), and in some cases, the times are
-    almost the same.
+    actually very small between the two tests (< 10000 microseconds or 1 hundreth
+    of a second), and in some cases, the times are almost the same. Because of
+    this you could probably argue that there isn't really a difference between the two.
 
   */
 }
