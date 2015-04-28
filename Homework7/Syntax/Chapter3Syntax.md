@@ -41,8 +41,6 @@
 ![ParseTree7c](paseTree2.jpg)
 
 ##### D.
-d. A = B * (C * (A + B))
-
     <assign> -> <id> = <expr>
                   A = <expr>
                   A = <term>
@@ -67,7 +65,6 @@ d. A = B * (C * (A + B))
                   A = A * (C * (A + B))
 
 ![parseTree7d](parseTree3.jpg)
-
 
 ### 11c-d.
 C - NO
