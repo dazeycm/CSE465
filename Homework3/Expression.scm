@@ -30,7 +30,6 @@
     (display "Number between -25 && 25: ")
     (display (caddr lst))
     (NEWLINE)
-    (display "Number greather than 25: ")
+    (display "Number greater than 25: ")
     (display (cadddr lst))
 )
-       
