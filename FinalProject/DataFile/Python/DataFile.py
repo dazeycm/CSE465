@@ -46,15 +46,15 @@ for line in file:
 
     gradeBook[name] = {'hw': hw, 'quiz': quiz, 'exam': exam, 'finalScore': finalScore, 'letterGrade': letterGrade}
 
-#simple tests to check to make sure values are calculated correctly
-assert gradeBook['Zmuda']['hw'] == 97.7, "Homework grade was figured incorrectly"
-assert gradeBook['Zmuda']['quiz'] == 97.0, "Quiz grade was figured incorrectly"
-assert gradeBook['Zmuda']['exam'] == 100.0, "Exam grade was figured incorrectly"
-assert gradeBook['Zmuda']['finalScore'] == 98.6, "FinalScore grade was figured incorrectly"
-assert gradeBook['Zmuda']['letterGrade'] == 'A', "LetterGrade was figured incorrectly"
+#simple tests to use with test.txt to check to make sure values are calculated correctly
+#assert gradeBook['Zmuda']['hw'] == 97.7, "Homework grade was figured incorrectly"
+#assert gradeBook['Zmuda']['quiz'] == 97.0, "Quiz grade was figured incorrectly"
+#assert gradeBook['Zmuda']['exam'] == 100.0, "Exam grade was figured incorrectly"
+#assert gradeBook['Zmuda']['finalScore'] == 98.6, "FinalScore grade was figured incorrectly"
+#assert gradeBook['Zmuda']['letterGrade'] == 'A', "LetterGrade was figured incorrectly"
 
-for prof in gradeBook:
-    print('{} {} {}'.format(prof, gradeBook[prof]['finalScore'], gradeBook[prof]['letterGrade']))
+for name in gradeBook:
+    print('{} {} {}'.format(name, gradeBook[name]['finalScore'], gradeBook[name]['letterGrade']))
 
 
 
