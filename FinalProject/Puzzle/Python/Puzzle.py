@@ -1,7 +1,5 @@
 __author__ = 'Craig'
 
-
-
 def isPartionable(nums):
     ret = False
     for i in range(len(nums)):
