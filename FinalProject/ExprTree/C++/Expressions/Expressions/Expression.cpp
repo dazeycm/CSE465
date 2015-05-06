@@ -37,8 +37,8 @@ Node::~Node()	{
 	right = nullptr;
 }
 
-double Expression::evaluate(double x) const	{
-	return evaluateFromNode(root, x);
+double Expression::evaluate(double x, bool y) const	{
+	return evaluateFromNode(root, x, y);
 }
 
 Expression Expression::randomExpression(int height)	{
@@ -242,10 +242,10 @@ int Expression::getHeightFromNode(Node* node)	const{
 	}
 }
 
-double Expression::evaluateFromNode(Node* node, double x) const	{
+double Expression::evaluateFromNode(Node* node, double x, bool y) const	{
 	if (node->left != NULL && node->right != NULL)	{
-		double leftVal = evaluateFromNode(node->left, x);
-		double rightVal = evaluateFromNode(node->right, x);
+		double leftVal = evaluateFromNode(node->left, x, y);
+		double rightVal = evaluateFromNode(node->right, x, y);
 		char op = node->op;
 		switch (op)	{
 		case '+':
@@ -265,7 +265,9 @@ double Expression::evaluateFromNode(Node* node, double x) const	{
 		return val;
 	}
 	else{
-		if (node->isVar)
+		if(y)
+			return rand() % 10;
+		else if (node->isVar)
 			return x;
 		else
 			return node->value;

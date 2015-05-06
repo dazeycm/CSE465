@@ -24,7 +24,7 @@ public:
 	Expression(const Expression &other);				//done
 	Expression &operator = (const Expression &other);	//done
 	~Expression();										//done
-	double evaluate(double x) const;					//done
+	double evaluate(double x, bool y) const;					//done
 	static Expression randomExpression(int height);
 	string toString() const;
 	void mutate();										//done
@@ -40,7 +40,7 @@ private:
 	string stripParens(string str);						//done
 	Node* copyHelper(const Node *node);					//done
 	int getHeightFromNode(Node* other) const;			//done
-	double evaluateFromNode(Node* node, double x) const;//done
+	double evaluateFromNode(Node* node, double x, bool y) const;//done
 	static Node* addRandomNode(Node* root, int count, int height);//done
 	void changeNode(Node* node);						//done
 	int subTreeNodeCount(Node* node);					//done

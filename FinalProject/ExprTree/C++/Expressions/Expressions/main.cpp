@@ -6,8 +6,28 @@
 #include "Expression.h"
 using namespace std;
 
+vector<int> makeBuckets(int trials, int height)	{
+	vector<int> buckets;
+	
+	Expression exp;
+
+	for(int i = 0; i < trials; i++)	{
+		exp = Expression::randomExpression(height);
+		int result = exp.evaluate(0, true);
+	}
+
+	
+}
+
 int main()	{
 	srand(time(0));
+	
+	int less = 0;
+	int between = 0;
+	int greater = 0;
+
+
+
 	Expression exp;
 	cout << "Ctor: " << exp.toString() << endl;
 
