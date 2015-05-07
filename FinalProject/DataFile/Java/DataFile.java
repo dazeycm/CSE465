@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Main {
+public class DataFile {
 	static Student makeStudent(String stats)	{
 		List<String> parts = Arrays.asList(stats.split(" "));
 
