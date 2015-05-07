@@ -12,7 +12,7 @@ vector<int> makeBuckets(int trials, int height)	{
 
 	for(int i = 0; i < trials; i++)	{
 		exp = Expression::randomExpression(height);
-		int result = exp.evaluate(0, true);
+		double result = exp.evaluate(0, true);
 
 		if(result < -25)
 			buckets[0] += 1;

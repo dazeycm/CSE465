@@ -1,6 +1,6 @@
 __author__ = 'Craig'
 
-def isPartionable(nums):
+def isPartitionable(nums):
     ret = False
     for i in range(len(nums)):
         part1 = nums[i:]
@@ -15,9 +15,9 @@ def isPartionable(nums):
 
 
 
-print(isPartionable([1,2,3,3,2,1,1,2,3,3,1,2]))
-print(isPartionable([10,1,2,3,4,5,5,9,1]))
-print(isPartionable([1,1,1,1,4,3,1,1,3]))
-print(isPartionable([3,3,3,1,2,1]))
-print(isPartionable([1,1,1]))
-print(isPartionable([1,4,5,4,1,5,5]))
+print(isPartitionable([1,2,3,3,2,1,1,2,3,3,1,2]))
+print(isPartitionable([10,1,2,3,4,5,5,9,1]))
+print(isPartitionable([1,1,1,1,4,3,1,1,3]))
+print(isPartitionable([3,3,3,1,2,1]))
+print(isPartitionable([1,1,1]))
+print(isPartitionable([1,4,5,4,1,5,5]))
