@@ -76,7 +76,3 @@ if __name__ == '__main__':
     fileName = getFileName()
     parseFile(fileName)
     printVars()
-
-
-
-
