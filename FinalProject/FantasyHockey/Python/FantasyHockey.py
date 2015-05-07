@@ -27,7 +27,7 @@ file = open(fileName)
 goals = {}
 
 for line in file:
-    if "Goal scored" in line:
+    if "goal scored" in line.lower():
         parts = line.split()
         indexOfName = parts.index('by') + 1
 
@@ -44,4 +44,3 @@ print(getNumGoals(goals, 'Travis Zajac'))
 print(getNumGoals(goals, 'Jaromir Jagr'))
 print(getNumGoals(goals, 'Dmitry Kulikov'))
 print(getNumGoals(goals, 'Dan Ellis'))
-
