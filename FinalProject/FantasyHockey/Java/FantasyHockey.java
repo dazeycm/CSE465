@@ -22,8 +22,7 @@ public class FantasyHockey {
 	public static void main(String[] args)	{
 		final String SEARCH = "goal scored";
 		
-		String fileName = "C:\\Users\\Craig\\Desktop\\CSE465\\FinalProject\\FantasyHockey\\Java\\NHL.txt";
-		//String fileName = args[0];
+		String fileName = args[0];
 		BufferedReader input = null;
 		String line;
 		HashMap<String, Integer> playerGoals = new HashMap<String, Integer>();
@@ -32,7 +31,6 @@ public class FantasyHockey {
 			input = new BufferedReader(new FileReader(fileName));
 			while((line = input.readLine()) != null)	{
 				if(line.toLowerCase().contains(SEARCH))	{
-					System.out.println(line);
 					List<String> parts = Arrays.asList(line.split(" "));
 					for(int i = 0; i < parts.size() - 1; i++)	{
 						if (parts.get(i).equals("by"))	{
